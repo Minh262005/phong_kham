@@ -50,30 +50,38 @@ const Register = () => {
         alert("Birthdate must be lower or equal than today");
         return;
       }
+      console.log(values.socialsecurity);
       if (values.socialsecurity.length !== 12) {
         alert("Your ID card number must have 12 characters");
         return;
       }
+
       if (values.password != values.cpassword) {
         alert("Your confirm password must be same as password");
         return;
       }
-      const mail = values.email;
-      // const response = await axios.post(publicPort + `patient/register`, {
-      //   id: values.socialsecurity,
-      //   name: values.pname,
-      //   email: values.email,
-      //   password: values.password,
-      //   birthdate: values.bdate.replace(/-/g, "/"),
-      // });
-      // console.log(response);
-      // alert(response.data);
+      const partient = {
+        PAINTED_ID: values.socialsecurity,
+        Name: values.pname,
+        Email: values.email,
+        PASSWORD: values.password,
+        BIRTHDATE: values.bdate,
+      };
+      console.log(partient);
+      const mail = partient.Email;
+      const response = await axios.post(publicPort + `patient/register`, {
+        id: values.socialsecurity,
+        name: values.pname,
+        email: values.email,
+        password: values.password,
+        birthdate: values.bdate.replace(/-/g, "/"),
+      });
+      console.log(response);
+      alert(response.data);
 
-      // if (response.data === "Create success") {
-      //   navigate("/verifyregister", { state: { mail } });
-      // }
-      alert("Create success (fake)");
-      navigate("/verifyregister", { state: { mail } });
+      if (response.data === "Create success") {
+        navigate("/verifyregister", { state: { mail } });
+      }
     }
   };
   return (

@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 const RegisterStep2 = () => {
-  const [agreeTerms, setAgreeTerms] = useState(false);
-  const [agreeMarketing, setAgreeMarketing] = useState(false);
   return (
     <div className="p-[40px_48px] text-textColor2">
       <p>
@@ -32,14 +30,14 @@ const RegisterStep2 = () => {
       </p>
       <br />
       <div className="flex items-center gap-6">
-        <input type="checkbox" className="h-[29px] w-[29px]" checked={agreeTerms} onChange={e => setAgreeTerms(e.target.checked)} />
+        <input type="checkbox" className="h-[29px] w-[29px]" />
         <label>
           I agree to the{" "}
           <span className="text-textColor">Terms & Conditions(T&C)</span>{" "}
         </label>
       </div>{" "}
       <div className="flex items-center gap-6 mt-2">
-        <input type="checkbox" className="h-[29px] w-[29px]" checked={agreeMarketing} onChange={e => setAgreeMarketing(e.target.checked)} />
+        <input type="checkbox" className="h-[29px] w-[29px]" />
         <label>
           I agree to the use of my personal data for marketing and survey
           purposes
