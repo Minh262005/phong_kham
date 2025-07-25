@@ -10,11 +10,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { localPort, publicPort } from "../components/url/link";
+import { publicPort } from "../components/url/link";
 import React from "react";
 
 const RegisterStep = [
-  { id: 1, title: "Your Profile", step: <RegisterStep1 /> },
+  { id: 1, title: "Your Profile", step: <RegisterStep1 control={undefined} handleChangeName={undefined} /> },
   { id: 2, title: "Consent To Trest", step: <RegisterStep2 /> },
 ];
 const schame = yup.object({});
@@ -69,18 +69,12 @@ const Register = () => {
       };
       console.log(partient);
       const mail = partient.Email;
-      const response = await axios.post(publicPort + `patient/register`, {
-        id: values.socialsecurity,
-        name: values.pname,
-        email: values.email,
-        password: values.password,
-        birthdate: values.bdate.replace(/-/g, "/"),
-      });
+      const response = await axios.post(publicPort + `api/patient/register`, partient);
       console.log(response);
       alert(response.data);
 
       if (response.data === "Create success") {
-        navigate("/verifyregister", { state: { mail } });
+        navigate("/login");
       }
     }
   };
@@ -123,7 +117,7 @@ const Register = () => {
               })}
           </div>
           <div>
-            {step === 0 && <RegisterStep1 control={control} />}
+            {step === 0 && <RegisterStep1 control={control} handleChangeName={undefined} />}
             {step === 1 && <RegisterStep2 />}
           </div>
         </div>

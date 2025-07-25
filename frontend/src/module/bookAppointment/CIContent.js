@@ -566,7 +566,7 @@ const CIContent = () => {
                   <div className="flex items-center gap-[0.8rem]">
                     <input
                       className="w-[1.6rem] h-[1.6rem]"
-                      type="checkbox"
+                      type="radio"
                       checked={selectedCheckbox === "male"}
                       onChange={handleCheckboxChange}
                       name="gender"
@@ -582,7 +582,7 @@ const CIContent = () => {
                     <input
                       id="female"
                       className="w-[1.6rem] h-[1.6rem]"
-                      type="checkbox"
+                      type="radio"
                       checked={selectedCheckbox === "female"}
                       onChange={handleCheckboxChange}
                       name="gender"

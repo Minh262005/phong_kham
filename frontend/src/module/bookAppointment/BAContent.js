@@ -782,7 +782,7 @@ const BAContent = () => {
                   <div className="flex items-center gap-[0.8rem]">
                     <input
                       className="w-[1.6rem] h-[1.6rem]"
-                      type="checkbox"
+                      type="radio"
                       checked={selectedCheckbox === "Male"}
                       onChange={handleCheckboxChange}
                       name="gender"
@@ -798,7 +798,7 @@ const BAContent = () => {
                     <input
                       id="FeMale"
                       className="w-[1.6rem] h-[1.6rem]"
-                      type="checkbox"
+                      type="radio"
                       checked={selectedCheckbox === "FeMale"}
                       onChange={handleCheckboxChange}
                       name="gender"

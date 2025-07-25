@@ -8,16 +8,18 @@ const BookAppointmentPageGuest = () => {
   const storedName = localStorage.getItem("token");
   useEffect(() => {
     try {
-      const decoded = jwtDecode(storedName);
-      const rol = decoded?.roles[0]?.authority;
-      setRole(rol);
+      if (storedName) {
+        const decoded = jwtDecode(storedName);
+        const rol = decoded?.roles?.[0]?.authority;
+        setRole(rol);
+      }
     } catch (error) {
       console.log(error);
     }
   }, []);
   return (
     <div className="bg-white">
-      <BookAppHeader></BookAppHeader>
+      <BookAppHeader storedName={storedName}></BookAppHeader>
 
       <div>
         <Outlet></Outlet>

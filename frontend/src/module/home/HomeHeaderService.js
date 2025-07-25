@@ -11,7 +11,7 @@ import { publicPort } from "components/url/link";
 const HomeNav = [
   {
     id: 1,
-    to: "/service",
+    to: "/service", // luôn về /service
     title: "Home",
   },
   {
@@ -119,20 +119,19 @@ const HomeHeaderService = () => {
     navigate("/login-user");
   };
   const handleAppointments = () => {
-    window.location.href = "/listofappointment";
+    navigate("/listofappointment");
   };
   const handleCheckins = () => {
-    window.location.href = "/examination-list";
+    navigate("/examination-list");
   };
   const handleMedicalHistory = () => {
-    window.location.href = "/medicalhistory";
+    navigate("/medicalhistory");
   };
   const handleDoctors = () => {
-    // navigate("/login-user");
-    window.location.href = "/listDoctorForAll";
+    navigate("/listDoctorForAll");
   };
   const handleNews = () => {
-    window.location.href = "/newspage";
+    navigate("/newspage");
   };
 
   const [visibleItem, setVisibleItem] = useState(null);

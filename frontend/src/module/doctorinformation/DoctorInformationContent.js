@@ -10,14 +10,8 @@ import { publicPort } from "../../components/url/link";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
-import { storage } from "../../url/firebase";
+import { storage } from '../../firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 const tabButtons = ["DETAILED INFORMATION", "ASSESSMENT"];
 

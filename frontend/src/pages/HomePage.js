@@ -17,11 +17,15 @@ const HomePage = () => {
 
   useEffect(() => {
     const storedName = localStorage.getItem("token");
+    if (!storedName) {
+      navigate("/login-user");
+    }
     // console.log("store: ", storedName);
     if (storedName != null) {
       try {
         const decoded = jwtDecode(storedName);
-        const role = decoded.roles[0].authority;
+        const decodedAny = decoded;
+        const role = decodedAny?.roles?.[0]?.authority || "";
         setRole(role);
         // if (role !== 'USER') {
         //   navigate("/")

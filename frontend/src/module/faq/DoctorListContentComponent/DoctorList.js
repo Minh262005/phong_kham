@@ -3,15 +3,9 @@ import React, { useEffect, useState } from "react";
 import { FaHospital } from "react-icons/fa";
 import { IoIosSchool } from "react-icons/io";
 import { Link } from "react-router-dom";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
-import { storage } from "../url/firebase";
+import { storage } from '../../../firebase';
 import { v4 } from "uuid";
+import { ref, getDownloadURL } from 'firebase/storage';
 
 export default function DoctorList({
   docList,

@@ -9,10 +9,9 @@ import InputUsername from "../components/input/InputUsername";
 import InputPassword from "../components/input/InputPassword";
 import { publicPort } from "../components/url/link";
 import AiFillGoogleCircle from "../Images/gggogle.png";
-import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { app } from '../firebase';
 
 const LoginPageUser = () => {
   const navigate = useNavigate();
@@ -44,39 +43,33 @@ const LoginPageUser = () => {
     const isValidEmail = emailRegex.test(username);
 
     if (!isValidEmail) {
-      // do something
       alert("Incorrect Email format");
       return;
     }
-    const response = await axios.post(publicPort + `patient/login`, {
-      email: username,
-      password: password,
-    });
-    // console.log(response);
-
-    if (response.data.token === undefined) {
-      alert("Incorrect email or password.");
-    }
-
-    if (response.data.token.length > 0) {
-      const tokenn = response.data.token;
-      // console.log("true");
-      localStorage.setItem("token", response.data.token);
-      navigate("/service", { state: { tokenn } });
+    try {
+      const response = await axios.post(publicPort + `patient/login`, {
+        email: username,
+        password: password,
+      });
+      if (!response.data.token) {
+        alert("Incorrect email or password.");
+        return;
+      }
+      if (response.data.token.length > 0) {
+        const tokenn = response.data.token;
+        localStorage.setItem("token", response.data.token);
+        navigate("/service", { state: { tokenn } });
+      }
+    } catch (error) {
+      if (error.response) {
+        // Hiển thị lỗi chi tiết từ backend
+        console.log("Lỗi backend:", error.response.status, error.response.data);
+        alert(error.response.data.message || "Đăng nhập thất bại");
+      } else {
+        alert("Lỗi kết nối server");
+      }
     }
   };
-  const firebaseConfig = {
-    apiKey: "AIzaSyAHTSCNqDml61V3OGWWMB7gJJe5Xpg6MaU",
-    authDomain: "climates-48696.firebaseapp.com",
-    projectId: "climates-48696",
-    storageBucket: "climates-48696.appspot.com",
-    messagingSenderId: "13463981194",
-    appId: "1:13463981194:web:0185cfdc1d64c283d6b173",
-    measurementId: "G-8NG47L0MBF"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const db = getFirestore(app);
@@ -85,35 +78,19 @@ const LoginPageUser = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
-
-      const usersCollection = collection(db, 'users');
-      // Tạo yêu cầu POST với thông tin người dùng đã đăng nhập
-      const postData = {
-        email: user.email,
-        displayName: user.displayName,
-        // Các thông tin khác cần truyền
-      };
-
-
-      // Sử dụng thư viện hoặc phương thức để thực hiện yêu cầu POST
+      const idToken = await user.getIdToken();
+      // Gửi idToken lên backend
       const response = await axios.post(publicPort + `patient/logingoogle`, {
-        email: user.email,
-        displayName: user.displayName,
+        idToken
       });
-      // console.log(response);
-
       if (response.data.token === undefined) {
         alert("Incorrect email or password.");
       }
-
       if (response.data.token.length > 0) {
         const tokenn = response.data.token;
-        // console.log("true");
         localStorage.setItem("token", response.data.token);
         navigate("/service", { state: { tokenn } });
       }
-
     } catch (error) {
       console.error(error);
     }
@@ -154,6 +131,7 @@ const LoginPageUser = () => {
             control={control}
             name="email"
             username={username}
+            className=""
           ></InputUsername>
           <InputPassword
             handleChangePassword={handleChangePassword}
@@ -163,12 +141,14 @@ const LoginPageUser = () => {
             className="mt-8"
             placeholder="Password"
             control={control}
+            value={password}
           ></InputPassword>
           <div className="flex justify-between mt-[10px]">
             <div className="flex items-center gap-1 text-textColor">
               <input
                 type="checkbox"
                 className="w-[16px] h-[16px] border border-textColor"
+                onChange={() => {}}
               />
               <label htmlFor="">Remember me</label>
             </div>
@@ -190,12 +170,9 @@ const LoginPageUser = () => {
             </div>
           </div>
           <Button
-            // onClick={() => {
-            //   navigate("/");
-            // }}
-
             className="mt-8"
             type="submit"
+            onClick={() => {}}
           >
             Login
           </Button>

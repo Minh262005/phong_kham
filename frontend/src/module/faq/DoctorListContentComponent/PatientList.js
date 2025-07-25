@@ -16,7 +16,7 @@ import {
 } from "firebase/storage";
 
 import { v4 } from "uuid";
-import { storage } from "components/url/firebase";
+import { storage } from '../../../firebase';
 
 export default function PatientList({ docList, searchname }) {
   const navigate = useNavigate();

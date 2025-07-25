@@ -9,7 +9,7 @@ import {
   listAll,
   list,
 } from "firebase/storage";
-import { storage } from "../url/firebase";
+import { storage } from '../../firebase';
 import { v4 } from "uuid";
 
 const PopupDoctor = ({

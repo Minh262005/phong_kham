@@ -44,7 +44,7 @@ const LoginPage = () => {
       alert("Incorrect Email format");
       return;
     }
-    const response = await axios.post(publicPort + `api/login`, {
+    const response = await axios.post(publicPort + `patient/login`, {
       email: username,
       password: password,
     });
@@ -103,6 +103,7 @@ const LoginPage = () => {
             control={control}
             name="email"
             username={username}
+            className=""
           ></InputUsername>
           <InputPassword
             handleChangePassword={handleChangePassword}
@@ -112,9 +113,10 @@ const LoginPage = () => {
             className="mt-8"
             placeholder="Password"
             control={control}
+            value={password}
           ></InputPassword>
           <div className="flex justify-between mt-[10px]"></div>
-          <Button className="mt-8" type="submit">
+          <Button className="mt-8" type="submit" onClick={() => {}}>
             Login
           </Button>
         </form>

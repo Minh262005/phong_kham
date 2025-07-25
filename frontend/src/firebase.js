@@ -1,23 +1,18 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getStorage } from "firebase/storage"
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp, getApps } from "firebase/app";
+import { getStorage } from "firebase/storage";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAHTSCNqDml61V3OGWWMB7gJJe5Xpg6MaU",
-  authDomain: "climates-48696.firebaseapp.com",
-  projectId: "climates-48696",
-  storageBucket: "climates-48696.appspot.com",
-  messagingSenderId: "13463981194",
-  appId: "1:13463981194:web:0185cfdc1d64c283d6b173",
-  measurementId: "G-8NG47L0MBF"
+  apiKey: "AIzaSyBrYlku5HoMqGB7o1-zSj_MJz0zTbx0tTE",
+  authDomain: "phong-kham-fffec.firebaseapp.com",
+  projectId: "phong-kham-fffec",
+  storageBucket: "phong-kham-fffec.appspot.com",
+  messagingSenderId: "473360203491",
+  appId: "1:473360203491:web:361f0c272bee11d497cfd6",
+  measurementId: "G-981VC2ZWXJ"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const storage = getStorage(app)
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+const storage = getStorage(app);
+
+export { storage, app };

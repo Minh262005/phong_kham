@@ -60,36 +60,44 @@ function ProfileContent({ mail, role }) {
     const listApp = async () => {
       try {
         let response;
-        if (role == "USER") {
-          response = await axios.get(
-            publicPort + `patient/profile?email=${mail}`
-          );
-        } else {
-          response = await axios.get(
-            publicPort + `api/internal-accounts/search-email?email=${mail}`
-          );
+        if (mail && mail.trim() !== "") {
+          if (role == "USER") {
+            response = await axios.get(
+              publicPort + `patient/profile?email=${mail}`
+            );
+          } else {
+            response = await axios.get(
+              publicPort + `api/internal-accounts/search-email?email=${mail}`
+            );
+          }
+          console.log(response.data);
+          setInfor(response.data);
         }
-        console.log(response.data);
-        setInfor(response.data);
       } catch (error) {
         console.log(error);
       }
     };
-    listApp();
+    if (mail && mail.trim() !== "") {
+      listApp();
+    }
   }, [mail]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(publicPort + `users/getUserInfo`);
-        setInfor(response.data);
+        if (mail && mail.trim() !== "") {
+          const response = await axios.get(publicPort + `users/getUserInfo?email=${mail}`);
+          setInfor(response.data);
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchData();
-  }, []);
+    if (mail && mail.trim() !== "") {
+      fetchData();
+    }
+  }, [mail]);
 
   useEffect(() => {
     const fetchImage = async () => {

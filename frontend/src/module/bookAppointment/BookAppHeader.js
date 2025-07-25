@@ -9,7 +9,7 @@ const bookappointment = [
     title: "Home",
   },
   {
-    id: 3,
+    id: 2,
     to: "/book_appointment",
     title: "Book Appointment",
   },
@@ -36,20 +36,16 @@ const BookAppHeader = ({ storedName }) => {
       <nav className="home-nav">
         <ul>
           {bookappointment.length > 0 &&
-            bookappointment.map((item) => {
-              return (
-                <>
-                  <li key={item.id}>
-                    <NavLink
-                      className={({ isActive }) => (isActive ? "active" : null)}
-                      to={item.to}
-                    >
-                      {item.title}
-                    </NavLink>
-                  </li>
-                </>
-              );
-            })}
+            bookappointment.map((item) => (
+              <li key={item.id}>
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active" : null)}
+                  to={item.to}
+                >
+                  {item.title}
+                </NavLink>
+              </li>
+            ))}
         </ul>
       </nav>
     </div>
